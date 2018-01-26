@@ -60,8 +60,8 @@ install_software(){
   # A whole bunch of fun stuff to install
   # TODO: Should I alphabetize this list?  Probably should order it by dependency
   # TODO: Break this up into smaller parts.
-  sudo apt install build-essentials apt-transport-https vim-nox lolcat figlet expect tcl tk dialog libncurses5 libncurses5-dev htop openssl-blacklist isag fortune pv jq screenfetch cowsay cmatrix tmux mc nmap tig gitk bc exuberant-ctags ninvaders nsnake pacman4console cmakepython-pip python3-pip python-dev python3-dev texworks texlive textworks-scripting-lua texworks-scripting-python textlive-xetex hunspell octave x11-apps perl-tk xzdec youtube-dl xsel lynx lynx-common asciiweather libssl-dev 
-
+  # TODO: Find a way to install Java before hand or else it will install OpenJDK
+  sudo apt install build-essential apt-transport-https vim-nox lolcat figlet expect tcl tk dialog libncurses5 libncurses5-dev htop openssl-blacklist isag fortune pv jq screenfetch cowsay cmatrix tmux mc nmap tig gitk bc exuberant-ctags ninvaders nsnake pacman4console cmake python-pip python3-pip python-dev python3-dev texworks texlive texworks-scripting-lua texworks-scripting-python texlive-xetex hunspell octave x11-apps perl-tk xzdec youtube-dl xsel lynx lynx-common ansiweather libssl-dev
   # TODO: what was isag for? Interactive system grapher.
 
   # Programs that requre VcXsrv and how to run them
