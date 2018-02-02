@@ -60,14 +60,41 @@ install_software(){
   # A whole bunch of fun stuff to install
   # TODO: Should I alphabetize this list?  Probably should order it by dependency
   # TODO: Break this up into smaller parts.
-  # TODO: Find a way to install Java before hand or else it will install OpenJDK
-  sudo apt install build-essential apt-transport-https vim-nox lolcat figlet expect tcl tk dialog libncurses5 libncurses5-dev htop openssl-blacklist isag fortune pv jq screenfetch cowsay cmatrix tmux mc nmap tig gitk bc exuberant-ctags ninvaders nsnake pacman4console cmake python-pip python3-pip python-dev python3-dev texworks texlive texworks-scripting-lua texworks-scripting-python texlive-xetex hunspell octave x11-apps perl-tk xzdec youtube-dl xsel lynx lynx-common ansiweather libssl-dev
+  # TODO: Find a way to install Java before hand or else it will install OpenJDK (Probably shouldn't do this.)
+  # NOTE: DO NOT INSTALL libreadline-gplv2-dev! It will uninstall r-base-dev which R needs.
+	#					Install libreadline-dev
+  sudo apt install build-essential checkinstall apt-transport-https vim-nox lolcat figlet expect tcl tk tcl-dev tcl8.6-dev tk-dev tk8.6-dev dialog libncurses5 libncurses5-dev libncursesw5-dev libreadline-dev libreadline6-dev htop openssl-blacklist isag fortune pv jq screenfetch cowsay cmatrix tmux mc nmap tig gitk bc exuberant-ctags ninvaders nsnake pacman4console cmake python-pip python3-pip python-dev python3-dev hunspell x11-apps perl-tk xzdec youtube-dl xsel lynx lynx-common ansiweather libssl-dev libgdbm-dev libc6-dev libbz2-dev software-properties-common python-software-properties python-apt python-pibycurl libfontconfig1-dev libfreetype6-dev libice-dev libpthread-stubs0-dev libsm-dev libsqlite3-dev libx11-dev libx11-doc libxau-dev libxcb1-dev libxdmcp-dev libxext-dev libxft-dev libxrender-dev libxss-dev libxt-dev x11proto-core-dev x11proto-input-dev x11proto-kb-dev x11proto-render-dev x11proto-scrnsaver-dev x11proto-xext-dev xorg-sgml-doctools xtrans-dev
+
+
   # TODO: what was isag for? Interactive system grapher.
+
+  # NOTE: We can't install Oracle JDK, we have to do the OpenJDK stuff. (I know, I'm not happy about that either.
+  #       If anyone knows how to do that, report it as an issue.
+  # If there is an issue installing ca-certificates-java, you may need to reinstall open-jdk
+  # You can do this by running these three settings
+  # sudo apt-get purge openjdk-8-jre-headless
+  # sudo apt-get install openjdk-8-jre-headless
+  # sudo apt-get install openjdk=8-jre
+
+# TODO: Move install_octave and install_tex to another place in this script in future version
+install_octave(){
+  # I think Octave depends on default-jre-headless
+  sudo install octave
+}
+
+install_tex(){
+  # Install LaTeX applications separately because THEY TAKE WAY TOO LONG TO INSTALL!
+  sudo install texworks texlive texlive-xetex texworks-scripting-lua texworks-scripting-python
+}
 
   # Programs that requre VcXsrv and how to run them
   # texworks &
 
   # This is used to enable VcXsrv
+  # TODO: This may be "localhost:10.0" if you are forwarding X11 to SSH.
+  # BTW, if you do the X11 forward, don't run startx/startlxde[-pi] or else it will take over your desktop.
+  # (Think of it as what happens if you phase two objects into the same space 
+  # without transpositioning them into separate locations. #Brundlefly!)
   echo "export DISPLAY=localhost:0.0" >> ~/.bashrc
   echo "export DISPLAY=localhost:0.0" >> ~/.zshrc
 }
@@ -176,8 +203,35 @@ install_github(){
 # git commit -m "First commit"
 #
 
+install_python(){
+	# Install python.
+	# "Wait, isn't python already installed?" Yes it is. Is it the latest version
+	# that is used in book like Learning Python 3 the hard way? NO!
+	# See https://launchpad.net/~deadsnakes/+archive/ubuntu/ppa
+  sudo add-apt-repository ppa:deadsnakes/ppa
+  sudo apt-get update
+  sudo apt-get install python3.6
+	# You will need to call this version of python with `python3.6`
+	# `python3` will likely use python 3.5
+	# `python` (which is Python 2) will likely use 2.7.12 or 2.7.14
+	# DO NOT UNINSTALL PYTHON 3.5. Stuff will break if you do.
+	# Set python 3.6 as default python 3
+	# See http://ubuntuhandbook.org/index.php/2017/07/install-python-3-6-1-in-ubuntu-16-04-lts/
+	sudo update-alternatives --install /usr/bin/python3 python3 /usr/bin/python3.5 1
+	sudo update-alternatives --install /usr/bin/python3 python3 /usr/bin/python3.6 2
+	sudo update-alternatives --config python3
+	# It should be noted that with python3.6 installed, pip should also be upgraded.
+	# We will want to install Flake8 (http://flake8.pycqa.org/) for style guide enforcement
+	# When we use Vim to program Python 3.
+	# sudo pip install --no-cache-dir flake8
+	# The ~/.vimrc file should have the line for enabling Flake8.
+	# Better yet, install pylint (https://www.pylint.org/), it has a UML editor.
+	sudo apt-get install pylint
+} 
+
 install_clang(){
   # Install Clang
+	# TODO: Find a way to replace the wget command on the next line with curl.
   wget -O - https://apt.llvm.org/llvm-snapshot.gpg.key | sudo apt-key add -
   sudo apt-add-repository "deb http://apt.llvm.org/xenial/ llvm-toolchain-xenial-5.0 main"
   sudo apt-get update
@@ -274,6 +328,7 @@ install_posgresql(){
 }
 
 install_virtualenv(){
+	install_python 
   # Install Virtual Environment (for Python)
   # It needs pip to be installed. And we can't store it in a cache directory
   sudo apt-get install python-pip python3-pip
