@@ -54,3 +54,5 @@ done
 # Clean up ~/.gitconfig to avoid positng personal stuff
 sed -i -e 's/^\(\tname = \).*$/\1REDACTED/;s/^\(\temail = \).*$/\1REDACTED/;s/^\(\tusername = \).*$/\1REDACTED/' ${DOTFILES_DIR}/.gitconfig
 
+# Remove all my shells from ~/.bash_aliases (those should really go in a separate file!)
+sed -i -e '/ssh -i/d;/sftp -i/d;p' dotfiles/.bash_aliases

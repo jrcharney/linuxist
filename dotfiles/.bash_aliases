@@ -29,10 +29,6 @@ alias swp_check='find ~ -type f -name "*.sw[op]"'   # Check for vim backup files
 
 # SSH Shells
 # TODO: This should probably go in a separate file.
-alias sombra_home='ssh -i ~/.ssh/id_rsa_sombra pi@192.168.1.88'
-alias sombra_home_sftp='sftp -i ~/.ssh/id_rsa_sombra pi@192.168.1.88'
-alias sombra_ethernet='ssh -i ~/.ssh/id_rsa_sombra pi@169.254.149.221'
-alias sombra_ethernet_sftp='sftp -i ~/.ssh/id_rsa_sombra pi@169.254.149.221'
 
 # TODO: Git Repos
 # TODO: AWS
