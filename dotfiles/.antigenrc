@@ -1,0 +1,139 @@
+# File: ~/.antigenrc
+# Load antigen configuration
+antigen use oh-my-zsh
+
+# Load antigen bundles
+# See https://github.com/unixorn/awesome-zsh-plugins#plugins for what's available.
+# For z, see https://github.com/rupa/z
+# See https://github.com/robbyrussell/oh-my-zsh/wiki/Plugins for a list of OMZ Plugins.
+antigen bundles <<EOBUNDLES
+  zsh-users/zsh-syntax-highlighting
+  zsh-users/zsh-autosuggestions
+  zsh-users/zsh-completions
+
+  # NOTE: the itemst starting with three octothorpes were going to be on, 
+  # but I'm not using them right now so they are off to reduce startup time. 
+
+  # Use 256 colors (I already had this set up. In fact don't use this. It breaks stuff.)
+  # chrissicool/zsh-256color 
+
+  # Guess what to install when running an unknown command (Ubuntu and openSUSE only)
+  command-not-found
+  # Alaises for the history command (h, hsi something)
+  history
+  # A collection of useful aliases (Take a look at them!)
+  # common aliases
+  # Set of aliases to work with Debian APT
+  debian
+  # Completion for human beings (typos?)
+  # compleat
+  # Type ESC twice to put sid infront of the current command or the las ton e if the command line is empty
+  # sudo
+  # Autocompletion for Docker
+  # docker
+  # Adds several options effecting the startup behavior of tmux.
+  # tmux
+  # Jump around, track the most used directories (Let's not use this.)
+  # z
+
+  ## Git plugins
+  # A big list of git aliases. See https://github.com/robbyrussell/oh-my-zsh/wiki/Plugin:git 
+  git
+  # Aliases for tig
+  tig 
+  # Support for git-extras (not part of git!) See https://github.com/tj/git-extras 
+  # git-extras
+  # Support for git-flow (not part of git!) See https://github.com/nvie/gitflow
+  # git-flow
+  # There's like several of these. Let's just stick with git for now.
+
+  ## Python plugins
+  # Completion for the python interpreter
+  python
+  # Completion for the pip command
+  pip
+  # Completion for pyenv command, exprots a pyenv_prompt-info for custom prompt
+  # pyenv
+  # Completion for the python file codeing style check tool (linter)
+  pylint
+  # Completion for virtualenv
+  virtualenv
+
+  ## Node plugins
+  # Autocompletion for node?
+  node
+  # Autocompletion for npm
+  npm
+  # Yarn autocompletion
+  yarn
+  # NVM for zsh (https://github.com/lukechilds/zsh-nvm)
+  lukechilds/zsh-nvm
+  # Completion plugin for CoffeeScript.
+  # coffee
+  # Commands for Cake, the CoffeeScript build tool.
+  # cake
+  
+  ## Ruby plugins
+  # Enable support for rbenv
+  rbenv
+  ###
+  ruby
+  # Completion for the gem command
+  ###
+  gem
+  # Auto completion for the github gem
+  # github
+  # Rake aliases
+  ###rake
+  # RVM support
+  # rvm
+  # Ruby on Rails aliases
+  # rails
+  # Enable bundler alaises
+  ###bundler
+  
+  ## Scala plugins
+  # Completion plugin for scala and scalac
+  # scala
+  # Completion plugin for SBT
+  # sbt
+
+  ## Perl plugins
+  # Perl shortcuts
+  # perl
+
+  # Add several commands to do webserches. (i.e. google something)
+  ###web-search
+
+  # heroku
+  
+  ## Clojure (Lisp) plugins
+  # Auto completion for leiningen, build took for clojure
+  # lein
+
+  # ZSH completion for the AWS command-line tool
+  # aws
+  ansiweather
+  async
+  pg
+  youtube-dl
+
+  ## Toys
+  # Nyancat goodness in your shell
+  nyan
+
+EOBUNDLES
+
+# Load an antigen theme
+# antigen theme https://github.com/denysdovhan/spaceship-zsh-theme spaceship
+# antigen theme eendroroy/alien alien
+antigen theme bhilburn/powerlevel9k powerlevel9k
+
+# NOTE: There are two ways to fix broken stuff.
+# 1. antigen restart      # reinitalize everything (typical)
+# or
+# 2. rm -rf ~/.antigen    # reinstall everything (last resort!)
+
+# Finally, apply everything
+antigen apply
+

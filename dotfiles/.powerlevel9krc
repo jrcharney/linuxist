@@ -1,0 +1,214 @@
+# File: ~/.powerlevel9krc
+# Info: Settings for Powerlevel9k
+# NOTE: the source command for this file should be near the top of ~/.zshrc
+# See https://github.com/bhilburn/powerlevel9k
+# See https://github.com/dlanileonardo/dotfiles/blob/master/powerlevel9krc.symlink
+
+# This file assumes that
+# export ADOTDIR=~/.antigen
+# export ANTIGEN_BUNDLE=$ADOTDIR/bundles
+
+# This line needs to be first.
+POWERLEVEL9K_INSTALLATION_PATH=$ANTIGEN_BUNDLES/bhilburn/powerlevel9k
+
+# Light color scheme. Set to `light` for light backgrounds or `dark` for dark backgrounds
+POWERLEVEL9K_COLOR_SCHEME='dark'
+
+# To see a full list of icons used in the theme, type `get_icon_names` in the terminal.
+# To dump all the icons you are using, shown in random colors add `icons_test` to your prompt. (NOTE: It will only work in the LEFT prompt.
+
+# Double-line Prompt
+# By default powerlevel9k is a single-line prompt.
+# If you want the segments display on one line and print the command line
+# below it, uncomment this next line.   This may not be necessary if you use the `newline` segment.
+# POWERLEVEL9K_PROMPT_ON_NEWLINE=true
+# If you want the right prompt to appear on the new line as well, uncomment this next line.
+# POWERLEVEL9K_RPROMPT_ON_NEWLINE=true
+# If you want a newline after each prompt/print loop, uncomment this next line.
+POWERLEVEL9K_PROMPT_ADD_NEWLINE=true
+
+# To disable the right prompt, uncomment this next line
+# POWERLEVEL9K_DISABLE_RPROMPT=true 
+
+# Customize the segment separators
+# TODO: whatever airline uses
+# POWERLEVEL9K_LEFT_SEGMENT_SEPARATOR=$'\uE0B1'
+# POWERLEVEL9K_RIGHT_SEGMENT_SEPARATOR=$'\uE0B3'
+
+
+# Customize the icons used to draw the multi-line prompt like so
+# TODO: Use chevrons.
+#POWERLEVEL9K_MULTILINE_FIRST_PROMPT_PREFIX="↱"
+#POWERLEVEL9K_MULTILINE_LAST_PROMPT_PREFIX="↳ "
+POWERLEVEL9K_MULTILINE_FIRST_PROMPT_PREFIX="%K{white}%k"
+POWERLEVEL9K_MULTILINE_LAST_PROMPT_PREFIX="%K{white}%F{161} \uf155%f%F{white} %k\ue0b0%f "
+
+# OS segment
+# Visit NerdFonts for the full list of OS icons.
+# TODO: Set up the OS icon for each operating system. (Raspberry Pi is available!)
+# TODO: Replace %F{white} (whichis more like %F{7}, and replace it with %F{15}
+POWERLEVEL9K_OS_ICON_BACKGROUND='202'           # Orange for Ubuntu
+POWERLEVEL9K_LINUX_ICON='%F{white}\uf30d%f'
+
+POWERLEVEL9K_ANDROID_ICON='\ue70e'              # TODO: Make this lime green %F{46}
+POWERLEVEL9K_APPLE_ICON='%\F{white}\uf179%f'    # TODO: Make the background black
+POWERLEVEL9K_FREEBSD_ICON='%F{red}\uf30e%f'     # TODO: Make the background navy blue
+POWERLEVEL9K_WINDOWS_ICON='%F{white}\uef70f%f'  # TODO: Decide on a background color
+
+# Context (a.k.a. user name.)
+# NOTE: See https://wiki.gentoo.org/wiki/Zsh/Guide for how Zsh uses its PS1
+DEFAULT_USER="$USER"
+POWERLEVEL9K_ALWAYS_SHOW_CONTEXT=true
+POWERLEVEL9K_CONTEXT_DEFAULT_BACKGROUND='54'      # Plum for Ubuntu. This should be different for other OSes
+POWERLEVEL9K_CONTEXT_DEFAULT_FOREGROUND='white'
+POWERLEVEL9K_CONTEXT_TEMPLATE="%F{white}\uf007 %n@%M%f" # User icon
+
+# Dirs
+POWERLEVEL9K_DIR_HOME_BACKGROUND='21'     # Blue like the color used for folders.
+POWERLEVEL9K_DIR_HOME_FOREGROUND='white'
+POWERLEVEL9K_HOME_ICON=$'\uf015'                  # This icon appears when the user is in the home directory
+POWERLEVEL9K_DIR_HOME_SUBFOLDER_BACKGROUND='21'
+POWERLEVEL9K_DIR_HOME_SUBFOLDER_FOREGROUND='white'
+POWERLEVEL9K_HOME_SUB_ICON=$'\uf07b'
+POWERLEVEL9K_DIR_DEFAULT_BACKGROUND='21'          # default was yellow?
+POWERLEVEL9K_DIR_DEFAULT_FOREGROUND='white'       # default was black?
+POWERLEVEL9K_FOLDER_ICON=$'\uf07c'
+# POWERLEVEL9K_SHORTEN_DIR_LENGTH=3
+# POWERLEVEL9K_SHORTEN_STRATEGY="truncate_from_right"
+
+# VCS icons
+# TODO: Bitbucket Icons
+# TODO: Mercurial Icons
+POWERLEVEL9K_VCS_GIT_ICON=$'\ue702'                 #$'\uf1d3'
+POWERLEVEL9K_VCS_GIT_GITHUB_ICON=$'\uf113'
+POWERLEVEL9K_VCS_GIT_BITBUCKET_ICON=$'\uf171'
+POWERLEVEL9K_VCS_GIT_GITLAB_ICON=$'\uf296'
+#POWERLEVEL9K_VCS_HG_ICON=$''
+POWERLEVEL9K_VCS_BRANCH_ICON=$'\uf418'            # Default is actually \ue0a0, but I wanted to match commit's style
+POWERLEVEL9K_VCS_COMMIT_ICON=$'\uf417'            # TODO: Why wasn't this set?
+POWERLEVEL9K_VCS_STAGED_ICON=$'\uf055'
+POWERLEVEL9K_VCS_UNSTAGED_ICON=$'\uf071'
+POWERLEVEL9K_VCS_UNTRACKED_ICON=$'\uf00d'
+POWERLEVEL9K_VCS_INCOMING_CHANGES_ICON=$'\uf0ab '
+POWERLEVEL9K_VCS_OUTGOING_CHANGES_ICON=$'\uf0aa '
+
+# VCS colours
+POWERLEVEL9K_VCS_MODIFIED_BACKGROUND='red'      #'236'    #'black'
+POWERLEVEL9K_VCS_MODIFIED_FOREGROUND='black'    #'red'
+POWERLEVEL9K_VCS_UNTRACKED_BACKGROUND='yellow'  #'236'   #'black'
+POWERLEVEL9K_VCS_UNTRACKED_FOREGROUND='black'   #'yellow'
+POWERLEVEL9K_VCS_CLEAN_BACKGROUND='green'       #'236'       #'black'
+POWERLEVEL9K_VCS_CLEAN_FOREGROUND='black'       #'green'
+
+# VCS CONFIG
+POWERLEVEL9K_SHOW_CHANGESET=true
+
+# TODO: Python Virtual Env
+POWERLEVEL9K_PYTHON_ICON=$'\ue235'
+POWERLEVEL9K_VIRTUALENV_BACKGROUND='25'
+POWERLEVEL9K_VIRTUALENV_FOREGROUND='228'
+
+# TODO: Change the node colors and icon to black on lime
+POWERLEVEL_NODE_ICON=$'\ue718'        # Default appears to be a hexagon (\ue24f) TODO: Make this emeral green %F{34}
+POWERLEVEL9K_NVM_BACKGROUND='28'
+POWERLEVEL9K_NVM_FOREGROUND="white"
+POWERLEVEL9K_NVM_VISUAL_IDENTIFIER_COLOR="white"
+# TODO: React (Spaceship had this, PL9K needs this!)
+# TODO: Go
+POWERLEVEL9K_GO_ICON=$'\ue626'        # also try \ue627 if it doesn't make any sense
+# TODO: Ruby
+POWERLEVEL9K_RUBY_ICON=$'\ue739'
+# TODO: Amazon web services
+POWERLEVEL9K_AWS_ICON=$'\uf270'   # The iconic Amazon A is much more visibule than the AWS logo (\ue7ad) 
+
+# Status
+POWERLEVEL9K_OK_ICON=$'\uf42e'					#$'\uf164'
+POWERLEVEL9K_FAIL_ICON=$'\uf467'				#$'\uf165'
+# TODO: For warnings, use \uf071 (warning symbol)
+POWERLEVEL9K_CARRIAGE_RETURN_ICON=$'\uf467'  #$'\u21b5'  #$'\uf165'
+# Carriage return should be $'\u21b5', however it is used for returning errors. So we need to use $'\f467'
+
+# If you see a gear it means that there is a job running in the background.
+# Run the jobs command to see what is running. fg will bring the most recent job forward.
+# Jobs that are sent to the background generally ran when in the command line the last argument was the ampersand
+# or if a user used the CTRL-Z command which wasn't mapped to something.
+POWERLEVEL9K_BACKGROUND_JOBS_ICON=$'\uf013' #$'\uf423'  # A gear. The default is \u2699, but it's hard to see! So using another gear.
+POWERLEVEL9K_EXECUTION_TIME_ICON=$'\uf254'   # hourglass
+# TODO: Do we want to show execution time?
+# TODO: Can we use a clock icon instead of an hourglass?
+
+# Customize the branch icon for Version Control systems
+# TODO: Whatever Sourcetree uses to look like a subway map?
+# POWERLEVEL9K_VCS_BRANCH_ICON=$'\uF126 '
+# You probably shouldn't mess with these, but for your information, here are the variables for changing VCS icons.
+# VCS_GIT_GITHUB_ICON						# Github
+# VCS_GIT_BITBUCKET_ICON				# BitBucket
+# VCS_GIT_GITLAB_ICON						# GitLab
+# VCS_GIT_ICON									# all others
+# You can change the colors of it like so
+# POWERLEVEL9K_VCS_FOREGROUND='021'		# Dark Blue
+
+# Customize the `time` segment.
+# I recommend not using this, especially if you are using Tmux where there is a time segment already there.
+# But if you feel like it anyway, here are the variables for changing the colors
+# POWERLEVEL9K_TIME_FOREGROUND='red'
+# POWERLEVEL9K_TIME_BACKGROUND='blue'
+
+# PL9K offers two commands for printing out the color codes used by your emulator
+# getColorCode background
+# getColorCode foreground
+
+# Segments with state colors
+# Color segments follow the following format:
+#		POWERLEVEL9K_<segment_name>_<state>_[BACKGROUND|FOREGROUND]
+# This is applied to the following segments and states
+#
+#	Segment					States
+# ----------------------------------------------------------------
+#	battery					LOW, CHARGING, CHARGED, DISCONNECTED            (battery requires acpi)
+# context					DEFAULT, REMOTE, ROOT
+# dir							HOME, HOME_SUBFOLDER, DEFAULT
+# dir_writable		FORBIDDEN
+# host						LOCAL, REMOTE
+# load						CRITICAL, WARNING, DEFAULT
+# rspec_stats			STATS_GOOD, STATS_AVG, STATS_BAD
+# status					ERROR, OK (note: only, if verbose is not false)
+# symfony2_tests	TESTS_GOOD, TESTS_AVG, TESTS_BAD
+# user						DEFAULT, ROOT
+# vcs							CLEAN, UNTRACKED, MODIFIED
+# vi_mode					NORMAL, INSERT
+
+
+
+# Default values of the Left and right prompts
+# POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(context dir rbenv vcs)
+# POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(status root_indicator background_jobs history time)
+
+# Split the segments between two lines, use the `newline` segment in the segment list
+# POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(dir newline vcs)
+
+# go_version
+# node_version
+# pyenv             # TODO: Set the colors and icon for pyenv. Visit http://www.pythonforbeginners.com/basics/how-to-use-python-virtualenv for details on how to use virtualenv
+# aws
+# aws_eb-env
+# docker_machine
+# See https://github.com/bhilburn/powerlevel9k/blob/master/README.md#available-prompt-segments
+# NOTE: Don't install nodeenv. It's not the same as virtual event for python
+#     We can't use node_version because if the home directory has a .npm directory, this module will show everywhere
+#
+POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(os_icon context dir virtualenv nvm rbenv vcs)
+# os_icon: display the logo for the operating system
+# context: Show username and machine name
+# dir: show the path. If you are in the home directory, a house icon will be used, elsewhere a folder.
+# virtualenv: if virtualenv is activated for a directory that uses it, this will show. (TODO: Can we do this autmatically?)
+#   TODO: Do something similar for Ruby
+#   TODO: Do something similar for Node
+# vcs: Show information about a directory that is a git repository
+POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(status root_indicator background_jobs history)
+# status: checkmark = good command, number and an X means bad command and what error was thrown
+# root_indicator: TBD (TODO: What does it look like?)
+# command_execution_time: Show how long it took to execute the command (Yeah, don't run this unless you have the horsepower.)
+# background_jobs: The gear icon will show up if there is a background job. (TODO: Number of jobs?)
+# history: Shows what command number this command is in the history file. (TODO: Icon?)
+#

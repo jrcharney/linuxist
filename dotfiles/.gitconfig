@@ -1,0 +1,14 @@
+[user]
+	name = REDACTED
+	email = REDACTED
+	username = REDACTED
+[credential]
+	helper = cache --timeout=3600
+[color]
+	ui = auto
+[web]
+	browser = google-chrome
+[core]
+	autocrlf = input
+[push]
+	default = simple
