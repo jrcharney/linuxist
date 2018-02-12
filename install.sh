@@ -4,6 +4,12 @@
 # TODO: Go to nerdfonts.com and download the nerdfonts. I suggest getting the Hack font and setting your terminal font to NF Hack.
 # TODO: Create a dialog interface for installing stuff, sort of like how raspbian does it.
 # TODO: Split this script into smaller scripts.
+# Useful commands:
+#   sudo apt-get install PACKAGE_NAME       # Install a package
+#   apt-cache PACKAGE_NAME                  # search for a package
+#   dpkg-query -l ['REGEX'] | less -eFMXR   # List the installed packages
+# There are other commands I use in this script that are useful.
+#     You can also take a look at https://wiki.debian.org/ListInstalledPackages
 
 echo "This script is NOT meant to be run. It just includes the steps for creating a kickass environment."
 echo "It was created on Vim in Zsh on Bash for Ubuntu for Windows."
@@ -27,8 +33,8 @@ exit 0
 
 test_shell(){
   # NOTE: You need to have a Interactive Login shell so that $PATH can be modified.
-  [[ $- == *i* ]] && echo "Interactive" || echo "Not interactive"
   shopt -q login_shell && echo "Login shell" || echo "Not login shell"
+  [[ $- == *i* ]] && echo "Interactive" || echo "Not interactive"
   # If the two tests did not return "Interactive" and "Login shell", 
   # Go Language and anything else you want to add to ~/.profile WILL NOT LOAD!
   # ~/.profile will only work if you are using an interactive login shell.
@@ -40,9 +46,24 @@ test_shell(){
   # You MUST put The `-~` before `/bin/bash -l` or else the Ubuntu Terminal will crash.
 }
 
+test_shell_zsh(){
+  # test_shell(_bash) is for bash
+  # test_shell_zsh is for zsh
+  [[ -o login ]] && echo 'Login shell' || echo 'Not login shell'  
+  [[ -o interactive ]] && echo 'Interactive' || echo 'Not interactive' 
+}
+
 # TODO: Fix the issue that causes duplicate entries in $PATH when opening TMUX
 # TODO: What about zsh?
 
+
+# Dot files are read in the following order
+# .zshenv     # First, but don't edit this one. 
+# .zprofile   # if login shell
+# .zshrc      # If interactive
+# .zlogin     # if login shell
+# ...
+# .zlogout    # if login shell
 
 # Update and upgrade
 # TODO: Add this to ~/.bash_aliases
@@ -63,7 +84,7 @@ install_software(){
   # TODO: Find a way to install Java before hand or else it will install OpenJDK (Probably shouldn't do this.)
   # NOTE: DO NOT INSTALL libreadline-gplv2-dev! It will uninstall r-base-dev which R needs.
 	#					Install libreadline-dev
-  sudo apt install build-essential checkinstall apt-transport-https vim-nox lolcat figlet expect tcl tk tcl-dev tcl8.6-dev tk-dev tk8.6-dev dialog libncurses5 libncurses5-dev libncursesw5-dev libreadline-dev libreadline6-dev htop openssl-blacklist isag fortune pv jq screenfetch cowsay cmatrix tmux mc nmap tig gitk bc exuberant-ctags ninvaders nsnake pacman4console cmake python-pip python3-pip python-dev python3-dev hunspell x11-apps perl-tk xzdec youtube-dl xsel lynx lynx-common ansiweather libssl-dev libgdbm-dev libc6-dev libbz2-dev software-properties-common python-software-properties python-apt python-pibycurl libfontconfig1-dev libfreetype6-dev libice-dev libpthread-stubs0-dev libsm-dev libsqlite3-dev libx11-dev libx11-doc libxau-dev libxcb1-dev libxdmcp-dev libxext-dev libxft-dev libxrender-dev libxss-dev libxt-dev x11proto-core-dev x11proto-input-dev x11proto-kb-dev x11proto-render-dev x11proto-scrnsaver-dev x11proto-xext-dev xorg-sgml-doctools xtrans-dev
+  sudo apt install build-essential checkinstall apt-transport-https vim-nox lolcat figlet expect tcl tk tcl-dev tcl8.6-dev tk-dev tk8.6-dev dialog libncurses5 libncurses5-dev libncursesw5-dev libreadline-dev libreadline6-dev htop openssl-blacklist isag fortune pv jq screenfetch cowsay cmatrix tmux mc nmap tig gitk bc exuberant-ctags ninvaders nsnake pacman4console cmake python-pip python3-pip python-dev python3-dev hunspell x11-apps perl-tk xzdec youtube-dl xsel lynx lynx-common ansiweather libssl-dev libgdbm-dev libc6-dev libbz2-dev software-properties-common python-software-properties python-apt python-pibycurl libfontconfig1-dev libfreetype6-dev libice-dev libpthread-stubs0-dev libsm-dev libsqlite3-dev libx11-dev libx11-doc libxau-dev libxcb1-dev libxdmcp-dev libxext-dev libxft-dev libxrender-dev libxss-dev libxt-dev x11proto-core-dev x11proto-input-dev x11proto-kb-dev x11proto-render-dev x11proto-scrnsaver-dev x11proto-xext-dev xorg-sgml-doctools xtrans-dev boxes
 
 
   # TODO: what was isag for? Interactive system grapher.
@@ -81,6 +102,7 @@ install_octave(){
   # I think Octave depends on default-jre-headless
   sudo install octave
 }
+# Note: you can use octave-cli in the command line instead of octave 
 
 install_tex(){
   # Install LaTeX applications separately because THEY TAKE WAY TOO LONG TO INSTALL!
@@ -226,7 +248,13 @@ install_python(){
 	# sudo pip install --no-cache-dir flake8
 	# The ~/.vimrc file should have the line for enabling Flake8.
 	# Better yet, install pylint (https://www.pylint.org/), it has a UML editor.
-	sudo apt-get install pylint
+	sudo apt-get install pylint 
+  # Install Scipy and Numpy for all that cool math stuff.
+  # We need to use --no-cache-dir since we can't cache our stuff.
+  # We need to use --user to put all our stuff in ~/.local
+  # see https://scipy.org and http://numpy.org 
+  # For alist of Python modules to install using pip, visit https://pypi.org 
+  python -m pip install --no-cache-dir --user numpy scipy matplotlib ipython jupyter pandas sympy nose
 } 
 
 install_clang(){
@@ -330,27 +358,106 @@ install_posgresql(){
 install_virtualenv(){
 	install_python 
   # Install Virtual Environment (for Python)
+  # See https://virtualenv.pypa.io/
   # It needs pip to be installed. And we can't store it in a cache directory
+  # TODO: Should I have used the --user option? (The instructions for virutalenv suggest that might not be a good idea.)
+  # TODO: Do I really need to use pip3?  Would using `python -m pip` be better? (The instructions of virtualenv suggest not to.)
   sudo apt-get install python-pip python3-pip
   sudo pip install --no-cache-dir --upgrade pip 
   sudo pip3 install --no-cache-dir --upgrade pip
+  sudo apt-get install python3.6-gdbm               # We need this one or else tmux won't activate session restoration.
   sudo pip install --no-cache-dir virtualenv
-  # TODO: virtualenv requires a directory?
+  # TODO: virtualenv requires a directory? (Yes.)
+}
+
+# TODO: Move this up near install_postgresql
+install_mongodb(){
+  # This process shold install MongoDB community edition
+  # See https://docs.mongodb.com/master/tutorial/install-mongodb-on-ubuntu/
+  sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv 2930ADAE8CAF5059EE73BB4B58712A2291FA4AD5
+  echo "deb [ arch=amd64,arm64 ] https://repo.mongodb.org/apt/ubuntu xenial/mongodb-org/3.6 multiverse" | sudo tee /etc/apt/sources.list.d/mongodb-org-3.6.list
+  sudo apt-get update 
+  sudo apt-get install -y mongodb-org
+  # Pin a specific version (if you want)
+  # echo "mongodb-org hold" | sudo dpkg --set-selections
+  # echo "mongodb-org-server hold" | sudo dpkg --set-selections
+  # echo "mongodb-org-shell hold" | sudo dpkg --set-selections
+  # echo "mongodb-org-mongos hold" | sudo dpkg --set-selections
+  # echo "mongodb-org-tools hold" | sudo dpkg --set-selections
+  # Run the MongoDB daemon
+  sudo service mongod start     # should listen to port 27017 unless specified. Check /var/log/mongodb/mongodb.log for details.
+  # Start a mongo shell
+  mongo --host 127.0.0.1:27017
+  # The databases should be stored in /var/lib/mongodb
+  # The log files should be stored in /var/log/mongodb
 }
 
 install_nodejs(){
   # Install NodeJS and Yarn
+  # TODO: Install Angular.io
+  
+  # TODO: Next time around, isntall node using nvm.
+  #       Right now, doing so will break stuff.
+  #       And Yarn isn't 100% compatible with nvm yet.
+  #       So for now these tow commands are bentched
+  # curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.33.8/install.sh | bash 
+  # curl -o- -L https://yarnpkg.com/install.sh | bash
+
   # TODO: -sL or -sS?
   curl -sL https://deb.nodesource.com/setup_8.x | sudo -E bash -
   sudo apt update && sudo apt install nodejs
+ 
+  # Install Yarn. (Bower is a dead parrot!)
+  # See https://yarnpkg.com/
   curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | sudo apt-key add -
   echo "deb https://dl.yarnpkg.com/debian/ stable main" | sudo tee /etc/apt/sources.list.d/yarn.list
   sudo apt-get update && sudo apt-get install yarn
+  
+  # Apparently, NPM works better when there is a Node version manager present.
+  # NPM says we don't need to reinstall node to install it, which is good because installing yarn befor installing nvm
+  # would be ideal considering that NVM has osme issues with yarn.
+  curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.33.8/install.sh | bash 
+  
+  # TODO: What about Webpack (https://webpack.js.org/)?  I'll need to get back to you on that.
+  # For now let's put a pin in that.
+  # I would suggest reading this though
+  # https://medium.com/front-end-hacking/what-are-npm-yarn-babel-and-webpack-and-how-to-properly-use-them-d835a758f987
+  # TODO: Make a script to include babel (https://babeljs.io/) when making new node.js projects.
+  # TODO: Make a script to create new React.js (https://reactjs.org/) projects.
+  # TODO: Make a script to create new Three.js (https://threejs.org/) projects.
+  # TODO: Definitely write something for Express.js (https://expressjs.com/). (Part of MERN)
+  # TODO: What about Socket.io? (https://socket.io/) (We can use it with Express.js, but what about React?)
+  #       TODO: Find more uses of socket.io.
+  # TODO: Take alook at other javascript libraries just for fun.
+  # * Processing.js (http://processingjs.org/)
+  # * Physics.js (http://wellcaffeinated.net/PhysicsJS/)
+  # * Planck.js (http://piqnt.com/planck.js/)
+  # * Matter.js (http://brm.io/matter-js/)
+  # * Cannon.js (http://www.cannonjs.org/)
+  # Use CDNJS (https://cdnjs.com/) to try them out!
+
+  # Install typescript, you'll want this for YouCompleteMe for Vim.
+  # See http://www.typescriptlang.org/
   sudo npm install -g typescript
   # sudo npm install -g
-  install_virtualenv                        # nodeenv is dependent on virtualenv
-  sudo pip install --no-cache-dir nodeenv   # TODO: Does this install node 9.4.0?
-  nodeenv env                               # TODO: Is this right?
+  
+  #install_virtualenv                        # nodeenv is dependent on virtualenv
+  #sudo pip install --no-cache-dir nodeenv   # TODO: Does this install node 9.4.0?
+  #nodeenv env                               # TODO: Is this right?
+  # UPDATE: DO NOT INSTALL NODEENV!
+  # I still recommnd using virtualenv for Python projects, but do not use nodeenv.
+  # If you ran the previous two commands, get rid of it using these two commands
+  # rm -rf ~/env      # or wherever you made that env directory
+  # sudo /usr/local/bin/nodeenv
+  
+  # So what should we install when we create a new node project?
+  # Well, most node projects are MEAN stack
+
+  nvm load                                           # Load NVM for Angular.
+  sudo npm install --unsafe-perm -g @angular/cli     # Install the Angular CLI from Angular.io
+  # Because node-sass keeps falling into an infinite loop, we need to use the --unsafe-perm 
+  # angular appears to einsall ejs (express.js?) and webpack, and sass? (node-sass)
+  # install_mongodb         # Probably should not run this until I get stuff sorted out with PostgreSQL
 }
 
 install_weechat(){
@@ -397,7 +504,8 @@ install_zsh(){
   # ~/.zshrc	 will be where we set our zsh settings.
   # ~/.antigenrc will be where we put the antigen settings
   # ~/.powerlevel9krc will be where we put the powerlevel9k settings
-  # TODO: Copy Bash's ~/.bash_aliases to ~/.zsh_aliases
+  # TODO: Add lines that add ~/.bash_aliases and ~/.zsh_aliases to ~/.zshrc even if they don't exists.
+  #         Decide where to put the lines. Before or after path exports.
 }
 
 echo "I've given you the tools. You just need to fill in the blanks."
