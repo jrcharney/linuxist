@@ -72,9 +72,15 @@ sudo apt update && sudo apt upgrade
 
 install_git(){
   # Install Git from the Git Repo (optional but recommended)
+  # NOTE: I highly recommend installing go before git so that you can install nishanths' license script.
   sudo add-apt-repository ppa:git-core/ppa
   sudo apt-get update
   sudo apt-get install git
+  # Use nishanths's license generating go script to generate licenses for your repositories.
+  # If you are using github, I recommend using MIT.
+  # You will likely need to restart the terminal before this can go into effect.
+  go get -u github.com/nishanths/license
+  # cd path/to/my/repo; license -o LICENSE.txt mit
 }
 
 install_software(){
