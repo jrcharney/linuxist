@@ -11,6 +11,10 @@
 # There are other commands I use in this script that are useful.
 #     You can also take a look at https://wiki.debian.org/ListInstalledPackages
 
+# Things we won't be installing:
+# * Docker (Sadly, the computer I have runs Windows 10 Home. Docker wants Windows 10 Pro claming something about Hyper-V. So much for doing some scrimshaw. Besides, I want to set this up so that EVERYBODY can use this project.)
+
+
 echo "This script is NOT meant to be run. It just includes the steps for creating a kickass environment."
 echo "It was created on Vim in Zsh on Bash for Ubuntu for Windows."
 exit 0
@@ -76,6 +80,8 @@ install_git(){
   sudo add-apt-repository ppa:git-core/ppa
   sudo apt-get update
   sudo apt-get install git
+
+  # TODO: Why did I put this here?! I needs to go somewhere else, like after Go is installed.
   # Use nishanths's license generating go script to generate licenses for your repositories.
   # If you are using github, I recommend using MIT.
   # You will likely need to restart the terminal before this can go into effect.
@@ -90,7 +96,7 @@ install_software(){
   # TODO: Find a way to install Java before hand or else it will install OpenJDK (Probably shouldn't do this.)
   # NOTE: DO NOT INSTALL libreadline-gplv2-dev! It will uninstall r-base-dev which R needs.
 	#					Install libreadline-dev
-  sudo apt install build-essential checkinstall apt-transport-https vim-nox lolcat figlet expect tcl tk tcl-dev tcl8.6-dev tk-dev tk8.6-dev dialog libncurses5 libncurses5-dev libncursesw5-dev libreadline-dev libreadline6-dev htop openssl-blacklist isag fortune pv jq screenfetch cowsay cmatrix tmux mc nmap tig gitk bc exuberant-ctags ninvaders nsnake pacman4console cmake python-pip python3-pip python-dev python3-dev hunspell x11-apps perl-tk xzdec youtube-dl xsel lynx lynx-common ansiweather libssl-dev libgdbm-dev libc6-dev libbz2-dev software-properties-common python-software-properties python-apt python-pibycurl libfontconfig1-dev libfreetype6-dev libice-dev libpthread-stubs0-dev libsm-dev libsqlite3-dev libx11-dev libx11-doc libxau-dev libxcb1-dev libxdmcp-dev libxext-dev libxft-dev libxrender-dev libxss-dev libxt-dev x11proto-core-dev x11proto-input-dev x11proto-kb-dev x11proto-render-dev x11proto-scrnsaver-dev x11proto-xext-dev xorg-sgml-doctools xtrans-dev boxes
+  sudo apt install build-essential checkinstall apt-transport-https vim-nox lolcat figlet expect tcl tk tcl-dev tcl8.6-dev tk-dev tk8.6-dev dialog libncurses5 libncurses5-dev libncursesw5-dev libreadline-dev libreadline6-dev htop openssl-blacklist isag fortune pv jq screenfetch cowsay cmatrix tmux mc nmap tig gitk bc exuberant-ctags ninvaders nsnake pacman4console cmake python-pip python3-pip python-dev python3-dev hunspell x11-apps perl-tk xzdec youtube-dl xsel lynx lynx-common ansiweather libssl-dev libgdbm-dev libc6-dev libbz2-dev software-properties-common python-software-properties python-apt python-pycurl libfontconfig1-dev libfreetype6-dev libice-dev libpthread-stubs0-dev libsm-dev libsqlite3-dev libx11-dev libx11-doc libxau-dev libxcb1-dev libxdmcp-dev libxext-dev libxft-dev libxrender-dev libxss-dev libxt-dev x11proto-core-dev x11proto-input-dev x11proto-kb-dev x11proto-render-dev x11proto-scrnsaver-dev x11proto-xext-dev xorg-sgml-doctools xtrans-dev boxes
 
 
   # TODO: what was isag for? Interactive system grapher.
@@ -407,7 +413,6 @@ install_mongodb(){
 
 install_nodejs(){
   # Install NodeJS and Yarn
-  # TODO: Install Angular.io
   
   # TODO: Next time around, isntall node using nvm.
   #       Right now, doing so will break stuff.
@@ -465,12 +470,20 @@ install_nodejs(){
   
   # So what should we install when we create a new node project?
   # Well, most node projects are MEAN stack
+  # Mongodb for a database
+  # Express.js for a "Sinatra-like" back-end web application framework
+  # Angular.js/Angular.io for front-end web application framework
+  # Node.js for the server runtime environment
 
   nvm load                                           # Load NVM for Angular.
   sudo npm install --unsafe-perm -g @angular/cli     # Install the Angular CLI from Angular.io
+  nvm unload                                         # We can continue to build our global tool arsenal.
   # Because node-sass keeps falling into an infinite loop, we need to use the --unsafe-perm 
   # angular appears to einsall ejs (express.js?) and webpack, and sass? (node-sass)
-  # install_mongodb         # Probably should not run this until I get stuff sorted out with PostgreSQL
+  install_mongodb         # A NoSQL Database
+  # Angular needs a Task Runner. Gulp provides a way to do this as a pipeline.
+  # See https://gulpjs.com 
+  sudo npm install gulp-cli -g
 }
 
 install_weechat(){
