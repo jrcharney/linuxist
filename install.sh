@@ -38,6 +38,7 @@ exit 0
 test_shell(){
   if [ $SHELL = /bin/bash ]; then 
     # NOTE: You need to have a Interactive Login shell so that $PATH can be modified.
+    echo "We are using Bash."
     shopt -q login_shell && echo "Login shell" || echo "Not login shell"
     [[ $- == *i* ]] && echo "Interactive" || echo "Not interactive"
     # If the two tests did not return "Interactive" and "Login shell", 
@@ -52,6 +53,7 @@ test_shell(){
   elif [ $SHELL = /bin/zsh ]; then  
     # test_shell(_bash) is for bash
     # test_shell_zsh is for zsh
+    echo "We are using Zsh."
     [[ -o login ]] && echo 'Login shell' || echo 'Not login shell'  
     [[ -o interactive ]] && echo 'Interactive' || echo 'Not interactive'
     # TODO: There were two other aliases I made for opening in zsh. I should probably explain what.
@@ -71,6 +73,8 @@ test_shell(){
     exit 1
   fi 
 }
+
+test_shell      # Let's see what kind of shell we are using.
 
 # Update and upgrade
 # TODO: Add this to ~/.bash_aliases
