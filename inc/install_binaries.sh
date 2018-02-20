@@ -3,6 +3,8 @@
 # Info: Install all the binary software from the Ubuntu repository
 # Usage: source ./inc/install_binaries.sh
 
+# TODO: what was isag for? Interactive system grapher.
+
 install_binaries(){
   # A whole bunch of fun stuff to install
   # TODO: Should I alphabetize this list?  Probably should order it by dependency
