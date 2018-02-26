@@ -56,6 +56,7 @@ MIT License.  This is actually one of the first curl-pushed repos I've made that
 ### How are you funding this project Jason?  Don't you have to eat and pay bills?
 That's a seriously kind question!  I'm hoping to link up with a Patreon account assuming I make sense of the tax stuff that goes with it.
 
+For now, [you can support me by buying me a Coffee with Ko-Fi!](https://ko-fi.com/jrcharney)
 
-In the meantime, welcome to that part of Linux everyone wanted but were too afraid to do it themselves.  **WELCOME TO THE LINUXIST!**
+Welcome to that part of Linux everyone wanted but were too afraid to do it themselves.  **WELCOME TO THE LINUXIST!**
 
