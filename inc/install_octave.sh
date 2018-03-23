@@ -21,4 +21,17 @@ install_octave(){
 }
 # Note: you can use octave-cli in the command line instead of octave 
 
+# NOTE: Octave uses GNUPLot. It is for that reason, we put it here.
+# TODO: Should install_octave run after install_gnuplot?
+install_gnuplot(){
+  sudo apt-get install gnuplot gnuplot-x11 gnuplot-tex gnuplot-data python-gnuplot python-scitools
+}
+# NOTE: Installing gnuplot will install a ton of qt5 stuff
+# NOTE: Installing gnuplot-x11 will literally install all sortst of gtk stuff
+
+# TODO: octave-image?
+# efax?  python-pil? python3-pil? texlive-base texlive-font-utils? 
+# html2ps? python-pychart? pstotext? tex4ht? tex4ht-common? imageinfo?
+# mathomatic?
+
 

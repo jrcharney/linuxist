@@ -172,9 +172,13 @@ source ./inc/install_youcompleteme.sh
 source ./inc/install_r.sh
 source ./inc/install_octave.sh 
 source ./inc/install_tex.sh 
+source ./inc/install_graphviz.sh 
 install_r
 install_octave
 install_tex
+install_graphviz
+install_magick
+install_gnuplot 
 
 # Programs that requre VcXsrv and how to run them
 # texworks &
